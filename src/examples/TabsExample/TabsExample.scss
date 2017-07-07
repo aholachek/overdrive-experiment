@@ -1,0 +1,32 @@
+@import './../../../node_modules/bootstrap/scss/_variables.scss';
+
+.tab-container {
+  margin: auto;
+}
+
+.tab-list {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+
+  li {
+    font-size: 1.2rem;
+    padding: 1rem;
+    display: block;
+    &:first-of-type {
+      padding-left: 0;
+    }
+  }
+
+  a:hover,
+  a:focus {
+    text-decoration: none;
+  }
+}
+
+
+.active-indicator {
+  height: 4px;
+  display: block;
+  background-color: $brand-primary;
+}
