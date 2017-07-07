@@ -18,7 +18,7 @@ class Overdrive extends React.Component {
     }
 
     animate(prevPosition, prevElement) {
-        const {duration, animationStart, forwards} = this.props;
+        const {duration, animationStart} = this.props;
 
         prevPosition.top += (window.pageYOffset || document.documentElement.scrollTop);
         const nextPosition = this.getPosition(true);
@@ -48,6 +48,9 @@ class Overdrive extends React.Component {
                 opacity: 1,
                 transform: noTransform
             }),
+            // ========================================================
+            // added ability to edit source element
+            // ========================================================
             ref :  (el)=> {
                     el && animationStart && animationStart('source', el)
                 }        
@@ -59,7 +62,7 @@ class Overdrive extends React.Component {
                 ...transition,
                 ...prevPosition,
                 margin: nextPosition.margin,
-                opacity: forwards ? 1 : 0,
+                opacity: 0,
                 transform: `matrix(${1 / targetScaleX}, 0, 0, ${1 / targetScaleY}, ${-targetTranslateX}, ${-targetTranslateY})`,
             })
         });
@@ -72,7 +75,10 @@ class Overdrive extends React.Component {
                 margin: prevPosition.margin,
                 opacity: 0,
                 transform: `matrix(${targetScaleX}, 0, 0, ${targetScaleY}, ${targetTranslateX}, ${targetTranslateY})`,
-                }),
+            }),
+            // ========================================================
+            // added ability to edit target element
+            // ========================================================
                 ref :  (el)=> {
                     el && animationStart && animationStart('target', el)
                 }
@@ -108,6 +114,9 @@ class Overdrive extends React.Component {
     animateEnd() {
         this.animationTimeout = null;
         this.setState({loading: false});
+        // ========================================================
+        // added childNode param to onAnimationEnd
+        // ========================================================
         this.props.onAnimationEnd && this.props.onAnimationEnd(this.childNode);
         window.document.body.removeChild(this.bodyElement);
     }
